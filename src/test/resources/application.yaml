@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+
+logging:
+  level: debug
+
+spring:
+  logging:
+    level: debug
+  datasource:
+    url: jdbc:sqlserver://192.168.1.22:1433;DatabaseName=oris_kik
+    username: sa
+    password: 1q2w3e4R
+  jpa:
+      hibernate:
+        ddl-auto: none
+        database-platform: org.hibernate.dialect.SQLServer2008Dialect
+        naming:
+          strategy: org.hibernate.cfg.DefaultNamingStrategy
+          implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      show-sql: true
+
