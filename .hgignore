@@ -1,0 +1,14 @@
+syntax: glob
+*.iml
+.idea/*
+target/*
+.idea/
+target/
+node_modules/
+typings/
+syntax: regexp
+TS-web-client/src/main/resources/static/node_modules
+TS-web-client-new/src/main/resources/static/node_modules
+TS-web-client-new/src/main/resources/static/typings
+*/.git/*
+sync/bower_components/*
