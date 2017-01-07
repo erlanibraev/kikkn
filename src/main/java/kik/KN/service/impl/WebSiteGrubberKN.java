@@ -43,6 +43,19 @@ public class WebSiteGrubberKN implements IWebSiteGrubber {
         }
     }
 
+    public List<MKvartira> scanKvartira() {
+        List<MKvartira> result = new ArrayList<>();
+        getCitiesUrls("prodazha-kvartir")
+                .forEach(s -> {
+                    try {
+                        result.addAll(scanKvartiraPages(s));
+                    } catch (IOException e) {
+                        log.error(e.getLocalizedMessage(), e);
+                    }
+                });
+        return result;
+    }
+
 
     protected List<String> getAllTypesUrls() {
         List<String> result = new ArrayList<>();
@@ -64,102 +77,25 @@ public class WebSiteGrubberKN implements IWebSiteGrubber {
         return result;
     }
 
-    protected List<MKvartira> scanPages(String url) throws IOException {
+
+    protected List<MKvartira> scanKvartiraPages(String url) throws IOException {
         List<MKvartira> result = new ArrayList<>();
         String nextUrl = url;
         while (nextUrl != null && !nextUrl.isEmpty()) {
             log.info(nextUrl);
             Document current = getDocument(nextUrl);
-            scanPage(current)
+            prodazhaKvartiryParser.scanKvartiraPage(current)
                     .forEach((s, mKvartira) -> result.add(mKvartira));
-            Element paginator = getPaginator(current);
-            nextUrl = paginator != null ? getNextPageGref(paginator) : null;
+            Element paginator = prodazhaKvartiryParser.getPaginator(current);
+            nextUrl = paginator != null ? prodazhaKvartiryParser.getNextPageGref(paginator) : null;
         }
         return result;
     }
 
-    protected Map<String, MKvartira> scanPage(Document current) throws IOException {
-        Map<String, MKvartira> result = getItemsKvartira(current);
-        result
-                .forEach((s, mKvartira) -> {
-                    try {
-                        Document doc = getDocument(s);
-                        parseKvartiraDetails(mKvartira, doc);
-                    } catch (IOException e) {
-                        log.error(e.getLocalizedMessage(), e);
-                    }
-                });
-        return result;
-
-    }
-
-    protected void parseKvartiraDetails(MKvartira mKvartira, Document doc) {
-        log.info("Детальная информация");
-        prodazhaKvartiryParser.getDetails(mKvartira, doc);
-    }
-
-    protected Map<String, MKvartira> getItemsKvartira(Document current) {
-        Map<String, MKvartira> result = new HashMap<>();
-        current.
-                select(".results-list")
-                .forEach(element -> {
-                    element.select(".results-item")
-                            .forEach(element1 -> {
-                                String href = getHref(element1);
-                                if(href != null && !href.isEmpty()) {
-                                    result.put(href, prodazhaKvartiryParser.getBaseData(element1));
-                                }
-                            });
-
-                });
-        return result;
-    }
-
-    protected Element getPaginator(Document doc) throws IOException {
-        return doc
-                .select(".paginator")
-                .first();
-    }
 
     protected Document getDocument(String url) throws IOException {
-        return Jsoup.connect(url).get();
+        return Jsoup.connect(url).timeout(10000).get();
     }
-
-    protected String getNextPageGref(Element paginator) {
-        String result = null;
-        Element next = paginator
-                .select(".next")
-                .first();
-        result = next != null ? next.attr("abs:href") : null;
-        return result;
-    }
-
-    protected String getHref(Element element) {
-        String result = null;
-        Element href= element
-                .select("a[href]")
-                .first();
-        result = href != null ? href.attr("abs:href") : null;
-        return result;
-    }
-
-    protected List<String> getItemsUrls(Document doc) throws IOException {
-        List<String> result = new ArrayList<>();
-        doc
-                .select(".results-list")
-                .forEach(element -> {
-                    element.select(".results-item")
-                            .forEach(element1 -> {
-                                String href = getHref(element1);
-                                if(href != null && !href.isEmpty()) {
-                                    result.add(href);
-                                }
-                            });
-
-                });
-        return result;
-    }
-
 
     @Value("${kn.base.url}")
     public void setUrl(String url) {

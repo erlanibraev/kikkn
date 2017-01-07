@@ -16,7 +16,7 @@ public class ValidateNumber {
     public static Integer getInteger(String s) {
         Integer result = null;
         if(isNumber(s)) {
-            result = Integer.parseInt(s);
+            result = Double.valueOf(s).intValue();
         }
         return result;
     }
