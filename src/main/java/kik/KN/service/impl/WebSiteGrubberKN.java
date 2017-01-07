@@ -37,7 +37,7 @@ public class WebSiteGrubberKN implements IWebSiteGrubber {
     public void grub() {
         try {
             Document doc = connect(url).get();
-            // TODO: 07.01.17 Сделать
+            // TODO: 07.01.17 Сделать---
         } catch (IOException e) {
             log.error(e.getLocalizedMessage(), e);
         }
