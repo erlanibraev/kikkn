@@ -51,6 +51,7 @@ public class SaveToDBMKvartiraTest {
         saveToDB.save(dataList);
         List<ApartmentAdsEntity> result = apartmentAdsRepository.findAll();
         printApartamentAdsList(result);
+        assertEquals(result.size(), dataList.size());
     }
 
     private void printApartamentAdsList(List<ApartmentAdsEntity> result) {

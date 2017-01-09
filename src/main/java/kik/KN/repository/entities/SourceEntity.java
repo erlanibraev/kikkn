@@ -13,6 +13,7 @@ public class SourceEntity {
     private String url;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     public Long getId() {
         return id;
