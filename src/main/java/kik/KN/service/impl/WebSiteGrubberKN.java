@@ -1,5 +1,6 @@
 package kik.KN.service.impl;
 
+import kik.KN.model.MCommercial;
 import kik.KN.model.MKvartira;
 import kik.KN.service.IWebSiteGrubber;
 import org.jsoup.Jsoup;
@@ -37,12 +38,14 @@ public class WebSiteGrubberKN implements IWebSiteGrubber {
 
     @Override
     public void grub() {
-        try {
-            Document doc = connect(url).get();
-            // TODO: 07.01.17 Сделать---
-        } catch (IOException e) {
-            log.error(e.getLocalizedMessage(), e);
-        }
+        scanKvartira();
+        scanCommercial();
+    }
+
+    public List<MCommercial> scanCommercial() {
+        List<MCommercial> result = new ArrayList<>();
+
+        return result;
     }
 
     public List<MKvartira> scanKvartira() {
