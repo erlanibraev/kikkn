@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Создал Ибраев Ерлан 05.01.17.
  */
 @Entity
-@Table(name = "Region", schema = "dbo", catalog = "oris_kik")
+@Table(name = "Region" )
 public class RegionEntity {
     private Long id;
     private String codKato;

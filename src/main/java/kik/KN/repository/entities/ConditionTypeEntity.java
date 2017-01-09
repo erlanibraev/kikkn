@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Создал Ибраев Ерлан 05.01.17.
  */
 @Entity
-@Table(name = "ConditionType", schema = "dbo", catalog = "oris_kik")
+@Table(name = "ConditionType" )
 public class ConditionTypeEntity {
     private Long id;
     private String name;

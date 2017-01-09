@@ -7,7 +7,7 @@ import java.sql.Date;
  * Создал Ибраев Ерлан 05.01.17.
  */
 @Entity
-@Table(name = "ApartmentAds", schema = "dbo", catalog = "oris_kik")
+@Table(name = "ApartmentAds" )
 public class ApartmentAdsEntity {
     private Long id;
     private Long source;
@@ -51,6 +51,7 @@ public class ApartmentAdsEntity {
 
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }

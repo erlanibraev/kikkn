@@ -4,19 +4,21 @@ package kik.KN.model;
  * Создал Ибраев Ерлан 06.01.17.
  */
 public class MKvartira {
+    private Long id; // Наше ID
+    private Long pageId; // Внешее ID
     private Double price; // Цена
-    private Integer priceUnit; // единица измерения стоимости или Если аренда
+    private Long priceUnit; // единица измерения стоимости или Если аренда
     private Integer rentPeriodType; // Для аренды
     private String addressName; // Адрес
     private Double lat; // Координаты
     private Double lon; // Координаты
-    private Integer condition; // Состояние
-    private Integer telephoneFacility; // Тип телефона
-    private Integer bathroomType; // санузел
+    private Long condition; // Состояние
+    private Long telephoneFacility; // Тип телефона
+    private Long bathroomType; // санузел
     private String security; // безопасность
     private Double ceilingHeight; // Высота потолков
     private Boolean isPledged; // в залоге
-    private Integer internetType; // тип интернета
+    private Long internetType; // тип интернета
     private Integer canalizationType; // канализация
     private Integer waterSupplyType; // Вода
     private Integer electricityType; // Электричество
@@ -24,7 +26,7 @@ public class MKvartira {
     private Integer gasSupplyType; // Газ
     private String description; // описание
     private String otherProp; // разное
-    private Integer wallType; // Тип строения
+    private Long wallType; // Тип строения
     private Integer roomCount; // Количество комнат
     private Integer yearBuild; // Год постройки
     private Integer storey; // Этаж квартиры
@@ -34,11 +36,28 @@ public class MKvartira {
     private Double kitchenArea; // площадь кухни
     private Integer balconyType; // Тип балкона
     private Boolean isGlassBalcony; // балкон остеклен
-    private Integer doorType; // тип двери
-    private Integer parkingType; // парковка
-    private Integer furniture; // мебель
-    private Integer floorType; // тип пола
+    private Long doorType; // тип двери
+    private Long parkingType; // парковка
+    private Long furniture; // мебель
+    private Long floorType; // тип пола
     private Boolean isDormitory; // Общежитие
+    private Long advertType; // Тип объявления Продажа/Аренда
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getPageId() {
+        return pageId;
+    }
+
+    public void setPageId(Long pageId) {
+        this.pageId = pageId;
+    }
 
     public Double getPrice() {
         return price;
@@ -48,11 +67,11 @@ public class MKvartira {
         this.price = price;
     }
 
-    public Integer getPriceUnit() {
+    public Long getPriceUnit() {
         return priceUnit;
     }
 
-    public void setPriceUnit(Integer priceUnit) {
+    public void setPriceUnit(Long priceUnit) {
         this.priceUnit = priceUnit;
     }
 
@@ -88,27 +107,27 @@ public class MKvartira {
         this.lon = lon;
     }
 
-    public Integer getCondition() {
+    public Long getCondition() {
         return condition;
     }
 
-    public void setCondition(Integer condition) {
+    public void setCondition(Long condition) {
         this.condition = condition;
     }
 
-    public Integer getTelephoneFacility() {
+    public Long getTelephoneFacility() {
         return telephoneFacility;
     }
 
-    public void setTelephoneFacility(Integer telephoneFacility) {
+    public void setTelephoneFacility(Long telephoneFacility) {
         this.telephoneFacility = telephoneFacility;
     }
 
-    public Integer getBathroomType() {
+    public Long getBathroomType() {
         return bathroomType;
     }
 
-    public void setBathroomType(Integer bathroomType) {
+    public void setBathroomType(Long bathroomType) {
         this.bathroomType = bathroomType;
     }
 
@@ -136,11 +155,11 @@ public class MKvartira {
         isPledged = pledged;
     }
 
-    public Integer getInternetType() {
+    public Long getInternetType() {
         return internetType;
     }
 
-    public void setInternetType(Integer internetType) {
+    public void setInternetType(Long internetType) {
         this.internetType = internetType;
     }
 
@@ -200,11 +219,11 @@ public class MKvartira {
         this.otherProp = otherProp;
     }
 
-    public Integer getWallType() {
+    public Long getWallType() {
         return wallType;
     }
 
-    public void setWallType(Integer wallType) {
+    public void setWallType(Long wallType) {
         this.wallType = wallType;
     }
 
@@ -280,35 +299,35 @@ public class MKvartira {
         isGlassBalcony = glassBalcony;
     }
 
-    public Integer getDoorType() {
+    public Long getDoorType() {
         return doorType;
     }
 
-    public void setDoorType(Integer doorType) {
+    public void setDoorType(Long doorType) {
         this.doorType = doorType;
     }
 
-    public Integer getParkingType() {
+    public Long getParkingType() {
         return parkingType;
     }
 
-    public void setParkingType(Integer parkingType) {
+    public void setParkingType(Long parkingType) {
         this.parkingType = parkingType;
     }
 
-    public Integer getFurniture() {
+    public Long getFurniture() {
         return furniture;
     }
 
-    public void setFurniture(Integer furniture) {
+    public void setFurniture(Long furniture) {
         this.furniture = furniture;
     }
 
-    public Integer getFloorType() {
+    public Long getFloorType() {
         return floorType;
     }
 
-    public void setFloorType(Integer floorType) {
+    public void setFloorType(Long floorType) {
         this.floorType = floorType;
     }
 
@@ -318,5 +337,13 @@ public class MKvartira {
 
     public void setDormitory(Boolean dormitory) {
         isDormitory = dormitory;
+    }
+
+    public Long getAdvertType() {
+        return advertType;
+    }
+
+    public void setAdvertType(Long advertType) {
+        this.advertType = advertType;
     }
 }

@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Создал Ибраев Ерлан 05.01.17.
  */
 @Entity
-@Table(name = "CeilingType", schema = "dbo", catalog = "oris_kik")
+@Table(name = "CeilingType" )
 public class CeilingTypeEntity {
     private Long id;
     private String name;

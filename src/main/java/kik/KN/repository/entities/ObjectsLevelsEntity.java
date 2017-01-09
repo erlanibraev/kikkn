@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Создал Ибраев Ерлан 05.01.17.
  */
 @Entity
-@Table(name = "ObjectsLevels", schema = "dbo", catalog = "oris_kik")
+@Table(name = "ObjectsLevels" )
 public class ObjectsLevelsEntity {
     private Long id;
     private Long objectId;

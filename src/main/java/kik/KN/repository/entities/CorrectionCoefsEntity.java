@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Создал Ибраев Ерлан 05.01.17.
  */
 @Entity
-@Table(name = "CorrectionCoefs", schema = "dbo", catalog = "oris_kik")
+@Table(name = "CorrectionCoefs" )
 public class CorrectionCoefsEntity {
     private Long id;
     private Long conclusionId;

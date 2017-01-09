@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Создал Ибраев Ерлан 05.01.17.
  */
 @Entity
-@Table(name = "AuthUser", schema = "dbo", catalog = "oris_kik")
+@Table(name = "AuthUser" )
 public class AuthUserEntity {
     private Long id;
     private Long accessLevel;

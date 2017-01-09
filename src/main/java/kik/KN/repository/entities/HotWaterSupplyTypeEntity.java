@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Создал Ибраев Ерлан 05.01.17.
  */
 @Entity
-@Table(name = "HotWaterSupplyType", schema = "dbo", catalog = "oris_kik")
+@Table(name = "HotWaterSupplyType" )
 public class HotWaterSupplyTypeEntity {
     private Long id;
     private String name;

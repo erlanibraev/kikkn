@@ -27,7 +27,7 @@ public class KikKNConfiguration {
     @Value("${kn.types}")
     private String typesStr="";
 
-    private Map<String, Integer> walltype;
+    private Map<String, Long> walltype;
 
     @PostConstruct
     public void setUp() {
@@ -45,18 +45,18 @@ public class KikKNConfiguration {
     }
 
     @Bean(name="walltype")
-    public Map<String, Integer> walltype() {
+    public Map<String, Long> walltype() {
         return walltype;
     }
 
-    private Map<String, Integer> initWallType() {
-        Map<String, Integer> result = new HashMap<>();
-        result.put("каркасно-камышитовый", 75);
-        result.put("кирпично-ригельный", 217);
-        result.put("кирпичный", 1);
-        result.put("монолитный", 6);
-        result.put("панельный", 2);
-        result.put("шлакоблочный", 11);
+    private Map<String, Long> initWallType() {
+        Map<String, Long> result = new HashMap<>();
+        result.put("каркасно-камышитовый", 75L);
+        result.put("кирпично-ригельный", 217L);
+        result.put("кирпичный", 1L);
+        result.put("монолитный", 6L);
+        result.put("панельный", 2L);
+        result.put("шлакоблочный", 11L);
         return result;
     }
 

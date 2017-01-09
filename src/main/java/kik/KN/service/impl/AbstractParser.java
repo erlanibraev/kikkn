@@ -3,6 +3,7 @@ package kik.KN.service.impl;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public abstract class AbstractParser {
     }
 
     protected Document getDocument(String url) throws IOException {
-        return Jsoup.connect(url).get();
+        return Jsoup.connect(url).timeout(10000).get();
     }
 
 }

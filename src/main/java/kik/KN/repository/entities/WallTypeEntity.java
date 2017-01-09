@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Создал Ибраев Ерлан 05.01.17.
  */
 @Entity
-@Table(name = "WallType", schema = "dbo", catalog = "oris_kik")
+@Table(name = "WallType" )
 public class WallTypeEntity {
     private Long id;
     private String name;

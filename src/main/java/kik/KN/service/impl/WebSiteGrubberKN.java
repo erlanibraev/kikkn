@@ -26,7 +26,9 @@ import static org.jsoup.Jsoup.connect;
 @Service
 public class WebSiteGrubberKN implements IWebSiteGrubber {
     private static final Logger log = LoggerFactory.getLogger(WebSiteGrubberKN.class);
+    public static final String ONE_DAY = "?days=1";
 
+    private Boolean oneDay;
     private  String url = "https://www.kn.kz/";
     private List<String> cities;
     private List<String> types;
@@ -71,7 +73,7 @@ public class WebSiteGrubberKN implements IWebSiteGrubber {
         cities
                 .forEach(s -> {
                     if(s != null && !s.isEmpty()) {
-                        result.add(url+"/"+s+"/"+type+"/");
+                        result.add(url+"/"+s+"/"+type+"/"+(getOneDay() ? ONE_DAY : ""));
                     }
                 });
         return result;
@@ -94,7 +96,16 @@ public class WebSiteGrubberKN implements IWebSiteGrubber {
 
 
     protected Document getDocument(String url) throws IOException {
-        return Jsoup.connect(url).timeout(10000).get();
+        return prodazhaKvartiryParser.getDocument(url);
+    }
+
+    public Boolean getOneDay() {
+        return oneDay;
+    }
+
+    @Value("${kn.oneday}")
+    public void setOneDay(Boolean oneDay) {
+        this.oneDay = oneDay;
     }
 
     @Value("${kn.base.url}")

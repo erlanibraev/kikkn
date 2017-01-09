@@ -63,7 +63,7 @@ public class WebSiteGrubberKNTest {
     @Test
     public void test04() throws IOException {
         Document doc = Jsoup.connect("https://www.kn.kz/obyavleniya/prodazha-kvartiry-67m-v-almaty-2745903/").get();
-        Integer result = prodazhaKvartiryParser.getWallType(doc);
+        Long result = prodazhaKvartiryParser.getWallType(doc);
         System.out.println(result);
         assertEquals(result.intValue(), 6);
 
@@ -91,6 +91,8 @@ public class WebSiteGrubberKNTest {
     }
 
     private void printKvartira(MKvartira mKvartira) {
+        System.out.print(mKvartira.getPageId());
+        System.out.print(") ");
         System.out.print(mKvartira.getAddressName());
         System.out.print("; ");
         System.out.print(mKvartira.getPrice());

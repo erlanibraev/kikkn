@@ -21,6 +21,14 @@ public class ValidateNumber {
         return result;
     }
 
+    public static Long getLong(String s) {
+        Long result = null;
+        if(isNumber(s)) {
+            result = Double.valueOf(s).longValue();
+        }
+        return result;
+    }
+
     public static boolean isNumber(String s) {
         return s.matches("\\d*\\.?\\d+");
     }

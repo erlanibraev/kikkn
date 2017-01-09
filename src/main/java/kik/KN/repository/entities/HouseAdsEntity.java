@@ -7,7 +7,7 @@ import java.sql.Date;
  * Создал Ибраев Ерлан 05.01.17.
  */
 @Entity
-@Table(name = "HouseAds", schema = "dbo", catalog = "oris_kik")
+@Table(name = "HouseAds" )
 public class HouseAdsEntity {
     private Long id;
     private Long source;

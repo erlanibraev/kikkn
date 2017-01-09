@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Создал Ибраев Ерлан 05.01.17.
  */
 @Entity
-@Table(name = "OuterEstateType", schema = "dbo", catalog = "oris_kik")
+@Table(name = "OuterEstateType" )
 public class OuterEstateTypeEntity {
     private Long id;
     private String name;

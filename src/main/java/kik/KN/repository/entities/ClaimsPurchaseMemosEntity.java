@@ -7,7 +7,7 @@ import java.sql.Date;
  * Создал Ибраев Ерлан 05.01.17.
  */
 @Entity
-@Table(name = "claimsPurchaseMemos", schema = "dbo", catalog = "oris_kik")
+@Table(name = "claimsPurchaseMemos" )
 public class ClaimsPurchaseMemosEntity {
     private Long id;
     private String code;

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,7 +23,7 @@ public class ProdazhaKvartiryParser extends AbstractParser {
 
     public static final String WALL_METRIAL="Материал стен";
 
-    private Map<String, Integer> wallType;
+    private Map<String, Long> wallType;
 
     public Map<String, MKvartira> getItemsKvartira(Document current) {
         Map<String, MKvartira> result = new HashMap<>();
@@ -60,12 +59,21 @@ public class ProdazhaKvartiryParser extends AbstractParser {
 
     protected MKvartira getBaseData(Element element) {
         MKvartira result = new MKvartira();
+        result.setAdvertType(1L);
         result.setAddressName(getAddressName(element));
         result.setPrice(getPrice(element));
         result.setRoomCount(getRoomCount(element));
         result.setYearBuild(getYearBuild(element));
+        result.setPageId(getOuterId(element));
         setArea(result, element);
         setFloor(result, element);
+        return result;
+    }
+
+    protected Long getOuterId(Element element) {
+        Long result = null;
+        String s = element.attr("object-id");
+        result = ValidateNumber.getLong(s);
         return result;
     }
 
@@ -85,8 +93,8 @@ public class ProdazhaKvartiryParser extends AbstractParser {
     }
 
 
-    protected Integer getWallType(Document doc) {
-        final Integer[] result = {null};
+    protected Long getWallType(Document doc) {
+        final Long[] result = {null};
         Element colContent = doc.select(".object-main-info").first();
         if(colContent != null) {
             Element table = colContent.select("table").first();
@@ -197,7 +205,7 @@ public class ProdazhaKvartiryParser extends AbstractParser {
 
     @Autowired
     @Qualifier("walltype")
-    public void setWallType(Map<String, Integer> wallType) {
+    public void setWallType(Map<String, Long> wallType) {
         this.wallType = wallType;
     }
 }
