@@ -85,6 +85,9 @@ public class WebSiteGrubberKNTest {
     public void test06() {
         List<MKvartira> result = webSiteGrubberKN.scanKvartira();
         result.forEach(mKvartira -> printKvartira(mKvartira));
+        System.out.println(result.size());
+        assertNotNull(result);
+        assertFalse(result.isEmpty());
     }
 
     private void printKvartira(MKvartira mKvartira) {
