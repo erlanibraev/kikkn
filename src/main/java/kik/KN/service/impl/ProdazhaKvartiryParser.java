@@ -1,6 +1,7 @@
 package kik.KN.service.impl;
 
 import kik.KN.model.MKvartira;
+import kik.KN.service.IParser;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,15 +19,15 @@ import java.util.Map;
  * Создал Ибраев Ерлан 06.01.17.
  */
 @Component
-public class ProdazhaKvartiryParser extends AbstractParser {
+@Qualifier("ProdazhaKvartiryParser")
+public class ProdazhaKvartiryParser extends AbstractParser<MKvartira> implements IParser<MKvartira> {
 
     private static final Logger log = LoggerFactory.getLogger(ProdazhaKvartiryParser.class);
 
     public static final String WALL_METRIAL="Материал стен";
 
     private Map<String, Long> wallType;
-
-    public Map<String, MKvartira> getItemsKvartira(Document current) {
+    public Map<String, MKvartira> getItems(Document current) {
         Map<String, MKvartira> result = new HashMap<>();
         current.
                 select(".results-list")
@@ -34,7 +36,8 @@ public class ProdazhaKvartiryParser extends AbstractParser {
                             .forEach(element1 -> {
                                 String href = getHref(element1);
                                 if(href != null && !href.isEmpty()) {
-                                    result.put(href, getBaseData(element1));
+                                    MKvartira item = getBaseData(element1);
+                                    result.put(href, item);
                                 }
                             });
 
@@ -42,12 +45,18 @@ public class ProdazhaKvartiryParser extends AbstractParser {
         return result;
     }
 
-    protected Map<String, MKvartira> scanKvartiraPage(Document current) throws IOException {
-        Map<String, MKvartira> result = getItemsKvartira(current);
+    @Override
+    protected void initScanType() {
+        setScanType("prodazha-kvartir");
+    }
+
+    public Map<String, MKvartira> scanPage(Document current, Long regionId) {
+        Map<String, MKvartira> result = getItems(current);
         result
                 .forEach((s, mKvartira) -> {
                     try {
                         Document doc = getDocument(s);
+                        mKvartira.setRegion(regionId);
                         getDetails(mKvartira, doc);
                     } catch (IOException e) {
                         log.error(e.getLocalizedMessage(), e);
@@ -208,4 +217,5 @@ public class ProdazhaKvartiryParser extends AbstractParser {
     public void setWallType(Map<String, Long> wallType) {
         this.wallType = wallType;
     }
+
 }

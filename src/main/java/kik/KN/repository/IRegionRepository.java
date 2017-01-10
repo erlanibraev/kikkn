@@ -3,6 +3,7 @@ package kik.KN.repository;
 import kik.KN.repository.entities.RegionEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -10,4 +11,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface IRegionRepository extends JpaRepository<RegionEntity, Long>, JpaSpecificationExecutor<RegionEntity> {
+
+    public RegionEntity findOneByKrishaLink(@Param("krishaLink") String krishaLink);
 }

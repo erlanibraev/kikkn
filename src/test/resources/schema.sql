@@ -648,7 +648,7 @@ CREATE TABLE Region
     id BIGINT PRIMARY KEY  auto_increment,
     codKATO VARCHAR(1000),
     name VARCHAR(1000),
-    fullName VARCHAR(1000),
+    "fullName" VARCHAR(1000),
     ord BIGINT,
     lat FLOAT,
     lon FLOAT,

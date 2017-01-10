@@ -42,6 +42,7 @@ public class MKvartira {
     private Long floorType; // тип пола
     private Boolean isDormitory; // Общежитие
     private Long advertType; // Тип объявления Продажа/Аренда
+    private Long region; // Регион/Город
 
     public Long getId() {
         return id;
@@ -345,5 +346,13 @@ public class MKvartira {
 
     public void setAdvertType(Long advertType) {
         this.advertType = advertType;
+    }
+
+    public Long getRegion() {
+        return region;
+    }
+
+    public void setRegion(Long region) {
+        this.region = region;
     }
 }

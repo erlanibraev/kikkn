@@ -12,6 +12,7 @@ public class WallTypeEntity {
     private String name;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     public Long getId() {
         return id;

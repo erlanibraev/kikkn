@@ -43,7 +43,7 @@ public class SaveToDBMKvartiraTest {
 
     @PostConstruct
     private void init() throws IOException {
-        dataList = webSiteGrubberKN.scanKvartiraPages("https://www.kn.kz/almaty/prodazha-kvartir/?days=1");
+        dataList = prodazhaKvartiryParser.scanPages("https://www.kn.kz/almaty/prodazha-kvartir/?days=1");
     }
 
     @Test

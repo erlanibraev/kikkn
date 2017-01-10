@@ -13,4 +13,10 @@ spring:
     console:
       enabled: true
   jpa:
+    hibernate:
+      ddl-auto: create
+      naming:
+        strategy: org.hibernate.cfg.DefaultNamingStrategy
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
