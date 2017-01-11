@@ -22,7 +22,7 @@ import java.util.Map;
  */
 public abstract class AbstractParser<T> implements IParser<T> {
 
-    private static final Logger log = LoggerFactory.getLogger(AbstractParser.class);
+    protected static final Logger log = LoggerFactory.getLogger(AbstractParser.class);
 
     public static final String ONE_DAY = "?days=1";
     private String scanType;

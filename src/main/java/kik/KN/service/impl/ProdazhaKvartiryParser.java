@@ -27,6 +27,7 @@ public class ProdazhaKvartiryParser extends AbstractParser<MKvartira> implements
     public static final String WALL_METRIAL="Материал стен";
 
     private Map<String, Long> wallType;
+
     public Map<String, MKvartira> getItems(Document current) {
         Map<String, MKvartira> result = new HashMap<>();
         current.

@@ -37,6 +37,8 @@ public class MCommercial {
     private String description;
     private String security;
     private String otherProp;
+    private String addressName;
+    private Long source;
 
 
     public Long getId() {
@@ -277,5 +279,21 @@ public class MCommercial {
 
     public void setOtherProp(String otherProp) {
         this.otherProp = otherProp;
+    }
+
+    public String getAddressName() {
+        return addressName;
+    }
+
+    public void setAddressName(String addressName) {
+        this.addressName = addressName;
+    }
+
+    public Long getSource() {
+        return source;
+    }
+
+    public void setSource(Long source) {
+        this.source = source;
     }
 }
