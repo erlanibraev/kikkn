@@ -16,28 +16,11 @@ import java.util.List;
  * Создал Ибраев Ерлан 09.01.17.
  */
 @Service
-public class SaveToDBMKvartira implements ISaveToDB<ApartmentAdsEntity, MKvartira> {
-
-    private IApartmentAdsRepository apartmentAdsRepository;
-    private Long sourceId;
-
-    @Override
-    public ApartmentAdsEntity save(MKvartira data) {
-        ApartmentAdsEntity entity = getEntity(data);
-        return apartmentAdsRepository.save(entity);
-    }
-
-    @Override
-    public List<ApartmentAdsEntity> save(List<MKvartira> list) {
-        List<ApartmentAdsEntity> result = new ArrayList<>();
-        list.forEach(mKvartira -> result.add(getEntity(mKvartira)));
-        apartmentAdsRepository.save(result);
-        return result;
-    }
+public class SaveToDBMKvartira extends AbstractSaveToDB<ApartmentAdsEntity, MKvartira> implements ISaveToDB<ApartmentAdsEntity, MKvartira> {
 
     protected ApartmentAdsEntity getEntity(MKvartira data) {
         Long pageId = data.getPageId();
-        ApartmentAdsEntity entity = pageId != null ? apartmentAdsRepository.findOneByPageId(pageId) : null;
+        ApartmentAdsEntity entity = pageId != null ? ((IApartmentAdsRepository)getRepository()).findOneByPageId(pageId) : null;
         if(entity == null) {
             entity = new ApartmentAdsEntity();
             entity.setCreateDate(new Date(new java.util.Date().getTime()));
@@ -79,17 +62,7 @@ public class SaveToDBMKvartira implements ISaveToDB<ApartmentAdsEntity, MKvartir
         entity.setWallType(data.getWallType());
         entity.setYearBuilt(data.getYearBuild());
         entity.setAdvertType(data.getAdvertType());
-        entity.setSource(sourceId);
+        entity.setSource(getSourceId());
         return entity;
-    }
-
-    @Autowired
-    public void setApartmentAdsRepository(IApartmentAdsRepository apartmentAdsRepository) {
-        this.apartmentAdsRepository = apartmentAdsRepository;
-    }
-
-    @Value("${kn.source.id}")
-    public void setSourceId(Long sourceId) {
-        this.sourceId = sourceId;
     }
 }

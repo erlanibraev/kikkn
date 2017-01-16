@@ -39,11 +39,13 @@ public class WebSiteGrubberKN implements IWebSiteGrubber {
     }
 
     @Autowired
+    @Qualifier("ProdazhaKvartiryParser")
     public void setProdazhaKvartiryParser(ProdazhaKvartiryParser prodazhaKvartiryParser) {
         this.prodazhaKvartiryParser = prodazhaKvartiryParser;
     }
 
     @Autowired
+    @Qualifier("ProdazhaOfisaParser")
     public void setProdazhaOfisaParser(ProdazhaOfisaParser prodazhaOfisaParser) {
         this.prodazhaOfisaParser = prodazhaOfisaParser;
     }

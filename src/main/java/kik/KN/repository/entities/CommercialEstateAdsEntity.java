@@ -51,6 +51,7 @@ public class CommercialEstateAdsEntity {
 
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
