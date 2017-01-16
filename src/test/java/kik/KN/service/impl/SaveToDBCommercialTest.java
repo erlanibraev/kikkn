@@ -33,6 +33,15 @@ public class SaveToDBCommercialTest {
     private ProdazhaOfisaParser prodazhaOfisaParser;
 
     @Autowired
+    private ProdazhaMagazinaTorgovyPloshchadi prodazhaMagazinaTorgovyPloshchadi;
+
+    @Autowired
+    private ProdazhaBazySkladaParser prodazhaBazySkladaParser;
+
+    @Autowired
+    private ProdazhaZdaniyaPomeshcheniyaParser prodazhaZdaniyaPomeshcheniyaParser;
+
+    @Autowired
     private ISaveToDB<CommercialEstateAdsEntity, MCommercial> saveToDb;
 
     @Autowired
@@ -41,6 +50,9 @@ public class SaveToDBCommercialTest {
     @PostConstruct
     public void init() throws IOException {
         dataList = prodazhaOfisaParser.scanPages("https://www.kn.kz/almaty/prodazha-ofisa");
+        dataList.addAll(prodazhaMagazinaTorgovyPloshchadi.scanPages("https://www.kn.kz/almaty/prodazha-magazina-torgovoy-ploshchadi"));
+        dataList.addAll(prodazhaBazySkladaParser.scanPages("https://www.kn.kz/almaty/prodazha-bazy-sklada"));
+        dataList.addAll(prodazhaZdaniyaPomeshcheniyaParser.scanPages("https://www.kn.kz/almaty/prodazha-zdaniya-pomeshcheniya"));
     }
 
     @Test
@@ -60,6 +72,8 @@ public class SaveToDBCommercialTest {
         System.out.print(") ");
         System.out.print(entity.getPageId());
         System.out.print("; ");
+        System.out.print(entity.getCommercialEstateType());
+        System.out.print("; ");
         System.out.print(entity.getAddressName());
         System.out.print("; ");
         System.out.print(entity.getYearBuilt());
@@ -71,6 +85,8 @@ public class SaveToDBCommercialTest {
         System.out.print(entity.getPrice());
         System.out.print("; ");
         System.out.print(entity.getArea());
+        System.out.print("; ");
+        System.out.print(entity.getLink());
         System.out.print("; ");
 
         System.out.print(entity.getDescription());

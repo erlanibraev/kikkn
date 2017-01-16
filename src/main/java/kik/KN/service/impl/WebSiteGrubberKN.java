@@ -3,6 +3,7 @@ package kik.KN.service.impl;
 import kik.KN.model.MCommercial;
 import kik.KN.model.MKvartira;
 import kik.KN.repository.entities.ApartmentAdsEntity;
+import kik.KN.repository.entities.CommercialEstateAdsEntity;
 import kik.KN.service.IParser;
 import kik.KN.service.ISaveToDB;
 import kik.KN.service.IWebSiteGrubber;
@@ -27,15 +28,31 @@ public class WebSiteGrubberKN implements IWebSiteGrubber {
     private List<String> types;
     private IParser<MKvartira> prodazhaKvartiryParser;
     private ISaveToDB<ApartmentAdsEntity, MKvartira> savetToDbKvartira;
+    private ISaveToDB<CommercialEstateAdsEntity, MCommercial> saveToDnCommercial;
 
     private IParser<MCommercial> prodazhaOfisaParser;
+    private IParser<MCommercial> prodazhaMagazinaTorgovyPloshchadi;
+    private IParser<MCommercial> prodazhaBazySkladaParser;
+    private IParser<MCommercial> prodazhaZdaniyaPomeshcheniyaParser;
+
 
     @Override
     public void grub() {
-
         savetToDbKvartira.save(prodazhaKvartiryParser.scan());
+        saveToDnCommercial.save(prodazhaOfisaParser.scan());
+        saveToDnCommercial.save(prodazhaMagazinaTorgovyPloshchadi.scan());
+        saveToDnCommercial.save(prodazhaBazySkladaParser.scan());
+        saveToDnCommercial.save(prodazhaZdaniyaPomeshcheniyaParser.scan());
+    }
 
-        prodazhaOfisaParser.scan();
+    @Autowired
+    public void setSavetToDbKvartira(ISaveToDB<ApartmentAdsEntity, MKvartira> savetToDbKvartira) {
+        this.savetToDbKvartira = savetToDbKvartira;
+    }
+
+    @Autowired
+    public void setSaveToDnCommercial(ISaveToDB<CommercialEstateAdsEntity, MCommercial> saveToDnCommercial) {
+        this.saveToDnCommercial = saveToDnCommercial;
     }
 
     @Autowired
@@ -51,7 +68,26 @@ public class WebSiteGrubberKN implements IWebSiteGrubber {
     }
 
     @Autowired
-    public void setSavetToDbKvartira(ISaveToDB<ApartmentAdsEntity, MKvartira> savetToDbKvartira) {
-        this.savetToDbKvartira = savetToDbKvartira;
+    @Qualifier("ProdazhaMagazinaTorgovyPloshchadi")
+    public void setProdazhaMagazinaTorgovyPloshchadi(IParser<MCommercial> prodazhaMagazinaTorgovyPloshchadi) {
+        this.prodazhaMagazinaTorgovyPloshchadi = prodazhaMagazinaTorgovyPloshchadi;
+    }
+
+    @Autowired
+    @Qualifier("ProdazhaOfisaParser")
+    public void setProdazhaOfisaParser(IParser<MCommercial> prodazhaOfisaParser) {
+        this.prodazhaOfisaParser = prodazhaOfisaParser;
+    }
+
+    @Autowired
+    @Qualifier("ProdazhaBazySkladaParser")
+    public void setProdazhaBazySkladaParser(IParser<MCommercial> prodazhaBazySkladaParser) {
+        this.prodazhaBazySkladaParser = prodazhaBazySkladaParser;
+    }
+
+    @Autowired
+    @Qualifier("ProdazhaZdaniyaPomeshcheniyaParser")
+    public void setProdazhaZdaniyaPomeshcheniyaParser(IParser<MCommercial> prodazhaZdaniyaPomeshcheniyaParser) {
+        this.prodazhaZdaniyaPomeshcheniyaParser = prodazhaZdaniyaPomeshcheniyaParser;
     }
 }

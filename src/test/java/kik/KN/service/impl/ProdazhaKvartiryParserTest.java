@@ -90,31 +90,32 @@ public class ProdazhaKvartiryParserTest {
 
     private void printKvartira(MKvartira mKvartira) {
         System.out.print(mKvartira.getPageId());
-        System.out.print(") ");
+        System.out.print(";");
         System.out.print(mKvartira.getRegion());
-        System.out.print("; ");
+        System.out.print(";");
         System.out.print(mKvartira.getAddressName());
-        System.out.print("; ");
+        System.out.print(";");
         System.out.print(mKvartira.getPrice());
-        System.out.print("; ");
+        System.out.print(";");
         System.out.print(mKvartira.getRoomCount());
-        System.out.print("; ");
+        System.out.print(";");
         System.out.print(mKvartira.getYearBuild());
-        System.out.print("; ");
+        System.out.print(";");
         System.out.print(mKvartira.getStorey());
-        System.out.print("/");
+        System.out.print(";");
         System.out.print(mKvartira.getStoreysNumber());
         System.out.print("; ");
         System.out.print(mKvartira.getArea());
-        System.out.print("/");
+        System.out.print(";");
         System.out.print(mKvartira.getLivingArea());
-        System.out.print("/");
+        System.out.print(";");
         System.out.print(mKvartira.getKitchenArea());
-        System.out.print("; ");
+        System.out.print(";");
         System.out.print(mKvartira.getWallType());
-        System.out.print("; ");
+        System.out.print(";");
         System.out.print(mKvartira.getDescription());
-        System.out.print("; ");
+        System.out.print(";");
+        System.out.print(mKvartira.getLink());
 
 
         System.out.println();

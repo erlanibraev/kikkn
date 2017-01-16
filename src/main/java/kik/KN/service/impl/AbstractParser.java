@@ -24,6 +24,10 @@ public abstract class AbstractParser<T> implements IParser<T> {
 
     protected static final Logger log = LoggerFactory.getLogger(AbstractParser.class);
 
+    public static final String WALL_METRIAL="Материал стен";
+
+    protected Map<String, Long> wallType;
+
     public static final String ONE_DAY = "?days=1";
     private String scanType;
     private List<String> cities;
@@ -153,6 +157,60 @@ public abstract class AbstractParser<T> implements IParser<T> {
         return description != null ? description.text() : null;
     }
 
+    protected Long getOuterId(Element element) {
+        Long result = null;
+        String s = element.attr("object-id");
+        result = ValidateNumber.getLong(s);
+        return result;
+    }
+
+    protected Double getArea(Element element) {
+        Double result = null;
+        Element area = element
+                .select(".field-area")
+                .first();
+        if(area != null) {
+            Element value = area.select(".field-value").first();
+            if(value != null) {
+                String areaStr = null;
+                int coeff = 1;
+                areaStr = value.text().replaceAll(" Кв.м","")
+                        .replaceAll(" га","")
+                        .replaceAll(" сот","");
+                if(value.text().indexOf("га") > 0) {
+                    coeff = 10000;
+                } else if(value.text().indexOf("сот") > 0) {
+                    coeff = 100;
+                }
+                result = ValidateNumber.getDouble(areaStr)*coeff;
+            }
+        }
+        return result;
+    }
+
+    protected Long getWallType(Document doc) {
+        final Long[] result = {null};
+        Element colContent = doc.select(".object-main-info").first();
+        if(colContent != null) {
+            Element table = colContent.select("table").first();
+            if(table != null) {
+                table
+                        .select("tr")
+                        .forEach(tr -> {
+                            Element th = tr.select("th").first();
+                            if(th != null  && WALL_METRIAL.equals(th.text())) {
+                                Element td = tr.select("td").first();
+                                if(td != null) {
+                                    String key = td.text().trim();
+                                    result[0] = wallType.get(key);
+                                }
+                            }
+                        });
+            }
+        }
+        return result[0];
+    }
+
     public void setScanType(String scanType) {
         this.scanType = scanType;
     }
@@ -191,5 +249,12 @@ public abstract class AbstractParser<T> implements IParser<T> {
     public void setRegion(Region region) {
         this.region = region;
     }
+
+    @Autowired
+    @Qualifier("walltype")
+    public void setWallType(Map<String, Long> wallType) {
+        this.wallType = wallType;
+    }
+
 
 }

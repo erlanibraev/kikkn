@@ -8,19 +8,16 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Создал Ибраев Ерлан 16.01.17.
  */
 @Component
-@Qualifier("ProdazhaMagazinaTorgovyPloshchadi")
-public class ProdazhaMagazinaTorgovyPloshchadi extends AbstractCommecrcialParser implements IParser<MCommercial> {
-
+@Qualifier("ProdazhaBazySkladaParser")
+public class ProdazhaBazySkladaParser extends AbstractCommecrcialParser implements IParser<MCommercial> {
     @Override
     protected void initScanType() {
-        setScanType("prodazha-magazina-torgovoy-ploshchadi");
+        setScanType("prodazha-bazy-sklada");
     }
 
     @Override
@@ -30,7 +27,6 @@ public class ProdazhaMagazinaTorgovyPloshchadi extends AbstractCommecrcialParser
         result.setCreateDate(new Date());
         result.setAdvertType(1L);
         result.setSource(2L);
-        // result.setCommercialEstateType(46L);
         result.setArea(getArea(element));
         result.setPrice(getPrice(element));
         return result;
@@ -47,5 +43,4 @@ public class ProdazhaMagazinaTorgovyPloshchadi extends AbstractCommecrcialParser
             mCommercial.setBussinessCenterName(getBussinessCenterName(doc));
         }
     }
-
 }

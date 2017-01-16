@@ -24,10 +24,6 @@ public class ProdazhaKvartiryParser extends AbstractParser<MKvartira> implements
 
     private static final Logger log = LoggerFactory.getLogger(ProdazhaKvartiryParser.class);
 
-    public static final String WALL_METRIAL="Материал стен";
-
-    private Map<String, Long> wallType;
-
     public Map<String, MKvartira> getItems(Document current) {
         Map<String, MKvartira> result = new HashMap<>();
         current.
@@ -58,6 +54,7 @@ public class ProdazhaKvartiryParser extends AbstractParser<MKvartira> implements
                     try {
                         Document doc = getDocument(s);
                         mKvartira.setRegion(regionId);
+                        mKvartira.setLink(s);
                         getDetails(mKvartira, doc);
                     } catch (IOException e) {
                         log.error(e.getLocalizedMessage(), e);
@@ -80,13 +77,6 @@ public class ProdazhaKvartiryParser extends AbstractParser<MKvartira> implements
         return result;
     }
 
-    protected Long getOuterId(Element element) {
-        Long result = null;
-        String s = element.attr("object-id");
-        result = ValidateNumber.getLong(s);
-        return result;
-    }
-
     protected void getDetails(MKvartira mKvartira, Document doc) {
         mKvartira.setDescription(getDescription(doc));
         mKvartira.setWallType(getWallType(doc));
@@ -102,29 +92,6 @@ public class ProdazhaKvartiryParser extends AbstractParser<MKvartira> implements
         return result;
     }
 
-
-    protected Long getWallType(Document doc) {
-        final Long[] result = {null};
-        Element colContent = doc.select(".object-main-info").first();
-        if(colContent != null) {
-            Element table = colContent.select("table").first();
-            if(table != null) {
-                table
-                        .select("tr")
-                        .forEach(tr -> {
-                            Element th = tr.select("th").first();
-                            if(th != null  && WALL_METRIAL.equals(th.text())) {
-                                Element td = tr.select("td").first();
-                                if(td != null) {
-                                    String key = td.text().trim();
-                                    result[0] = wallType.get(key);
-                                }
-                            }
-                        });
-            }
-        }
-        return result[0];
-    }
 
     protected void setFloor(MKvartira kvartira, Element element) {
         Element field = element
@@ -194,12 +161,6 @@ public class ProdazhaKvartiryParser extends AbstractParser<MKvartira> implements
     protected String getAddressName(Element element) {
         Element address = element.select(".results-item-street").first();
         return address != null ? address.text() : null;
-    }
-
-    @Autowired
-    @Qualifier("walltype")
-    public void setWallType(Map<String, Long> wallType) {
-        this.wallType = wallType;
     }
 
 }

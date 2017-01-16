@@ -13,8 +13,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.PostConstruct;
+import javax.sql.DataSource;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -41,6 +45,9 @@ public class SaveToDBMKvartiraTest {
     @Autowired
     private IApartmentAdsRepository apartmentAdsRepository;
 
+    @Autowired
+    private DataSource dataSource;
+
     @PostConstruct
     private void init() throws IOException {
         dataList = prodazhaKvartiryParser.scanPages("https://www.kn.kz/almaty/prodazha-kvartir/?days=1");
@@ -52,6 +59,12 @@ public class SaveToDBMKvartiraTest {
         List<ApartmentAdsEntity> result = apartmentAdsRepository.findAll();
         printApartamentAdsList(result);
         assertEquals(result.size(), dataList.size());
+    }
+
+    @Test
+    public void test02() throws SQLException {
+        Statement stat = dataSource.getConnection().createStatement();
+        stat.execute("CALL CSVWRITE('ApartmentAds.csv', 'SELECT * FROM ApartmentAds', 'UTF-8', ';', '')");
     }
 
     private void printApartamentAdsList(List<ApartmentAdsEntity> result) {
@@ -88,5 +101,11 @@ public class SaveToDBMKvartiraTest {
 
 
         System.out.println();
+    }
+
+    public String getBaseDir() {
+        String dir = "~/mad/tmp";
+
+        return dir;
     }
 }

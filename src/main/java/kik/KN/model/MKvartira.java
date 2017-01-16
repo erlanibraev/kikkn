@@ -43,6 +43,7 @@ public class MKvartira {
     private Boolean isDormitory; // Общежитие
     private Long advertType; // Тип объявления Продажа/Аренда
     private Long region; // Регион/Город
+    private String link;
 
     public Long getId() {
         return id;
@@ -354,5 +355,13 @@ public class MKvartira {
 
     public void setRegion(Long region) {
         this.region = region;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 }

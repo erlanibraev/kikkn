@@ -26,9 +26,8 @@ public class SaveToDBMKvartira extends AbstractSaveToDB<ApartmentAdsEntity, MKva
             entity.setCreateDate(new Date(new java.util.Date().getTime()));
         }
         entity.setAnalog(null);
-        entity.setLink(null);
         entity.setPhoneNumber(null);
-        entity.setRegion(null);
+//        entity.setRegion(null);
 
         entity.setPageId(data.getPageId());
         entity.setAddressName(data.getAddressName());
@@ -63,6 +62,7 @@ public class SaveToDBMKvartira extends AbstractSaveToDB<ApartmentAdsEntity, MKva
         entity.setYearBuilt(data.getYearBuild());
         entity.setAdvertType(data.getAdvertType());
         entity.setSource(getSourceId());
+        entity.setLink(data.getLink());
         return entity;
     }
 }
