@@ -136,6 +136,23 @@ public abstract class AbstractParser<T> implements IParser<T> {
         return result;
     }
 
+    protected Double getPrice(Element element) {
+        Double result = null;
+        Element price = element.select(".results-item-price").first();
+        if(price != null) {
+            String priceStr = price.text().replaceAll(" ", "").replaceAll("тг.","");
+            result = ValidateNumber.getDouble(priceStr);
+        }
+        return result;
+    }
+
+    protected String getDescription(Document doc) {
+        Element description = doc
+                .select(".description")
+                .first();
+        return description != null ? description.text() : null;
+    }
+
     public void setScanType(String scanType) {
         this.scanType = scanType;
     }

@@ -126,13 +126,6 @@ public class ProdazhaKvartiryParser extends AbstractParser<MKvartira> implements
         return result[0];
     }
 
-    protected String getDescription(Document doc) {
-        Element description = doc
-                .select(".description")
-                .first();
-        return description != null ? description.text() : null;
-    }
-
     protected void setFloor(MKvartira kvartira, Element element) {
         Element field = element
                 .select(".results-item-floor")
@@ -201,16 +194,6 @@ public class ProdazhaKvartiryParser extends AbstractParser<MKvartira> implements
     protected String getAddressName(Element element) {
         Element address = element.select(".results-item-street").first();
         return address != null ? address.text() : null;
-    }
-
-    protected Double getPrice(Element element) {
-        Double result = null;
-        Element price = element.select(".results-item-price").first();
-        if(price != null) {
-            String priceStr = price.text().replaceAll(" ", "").replaceAll("тг.","");
-            result = ValidateNumber.getDouble(priceStr);
-        }
-        return result;
     }
 
     @Autowired

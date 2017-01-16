@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.swing.plaf.synth.SynthEditorPaneUI;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,9 @@ public class ProdazhaOfisaParserTest {
     @Autowired
     @Qualifier("ProdazhaOfisaParser")
     private ProdazhaOfisaParser prodazhaOfisaParser;
+
+    @Autowired
+    private Region region;
 
     @Test
     public void test01() throws IOException {
@@ -52,12 +56,39 @@ public class ProdazhaOfisaParserTest {
         assertFalse(result.isEmpty());
     }
 
+    @Test
+    public void test03() throws IOException {
+        prodazhaOfisaParser.setOneDay(false);
+        List<String> cities = prodazhaOfisaParser.getCitiesUrls(prodazhaOfisaParser.getScanType());
+        Document current = prodazhaOfisaParser.getDocument(cities.get(0));
+        Map<String, MCommercial> result = prodazhaOfisaParser.scanPage(current, region.getRegionIdByUrl(cities.get(0)));
+        assertNotNull(result);
+        result
+                .forEach((s, item) -> {
+                    System.out.println(s);
+                    printCommercial(item);
+                });
+        assertFalse(result.isEmpty());
+    }
+
     private void printCommercial(MCommercial item) {
         System.out.print(item.getId());
         System.out.print(") ");
         System.out.print(item.getPageId());
         System.out.print("; ");
+        System.out.print(item.getYearBuilt());
+        System.out.print("; ");
+        System.out.print(item.getBuildingType());
+        System.out.print("; ");
+        System.out.print(item.getBussinessCenterName());
+        System.out.print("; ");
+        System.out.print(item.getPrice());
+        System.out.print("; ");
+        System.out.print(item.getArea());
+        System.out.print("; ");
 
+        System.out.print(item.getDescription());
+        System.out.print("; ");
         System.out.println();
     }
 }
