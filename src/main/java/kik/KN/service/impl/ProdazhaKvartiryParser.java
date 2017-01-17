@@ -67,6 +67,7 @@ public class ProdazhaKvartiryParser extends AbstractParser<MKvartira> implements
     protected MKvartira getBaseData(Element element) {
         MKvartira result = new MKvartira();
         result.setAdvertType(1L);
+        result.setSource(2L);
         result.setAddressName(getAddressName(element));
         result.setPrice(getPrice(element));
         result.setRoomCount(getRoomCount(element));
@@ -81,6 +82,8 @@ public class ProdazhaKvartiryParser extends AbstractParser<MKvartira> implements
         mKvartira.setDescription(getDescription(doc));
         mKvartira.setWallType(getWallType(doc));
         mKvartira.setAddressName(getDetailsAddressName(mKvartira, doc));
+        mKvartira.setPhoneNumber(getPhoneNumber(doc));
+        mKvartira.setPledged(isPladged(doc));
     }
 
     private String getDetailsAddressName(MKvartira mKvartira, Document doc) {

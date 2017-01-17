@@ -25,6 +25,7 @@ public abstract class AbstractParser<T> implements IParser<T> {
     protected static final Logger log = LoggerFactory.getLogger(AbstractParser.class);
 
     public static final String WALL_METRIAL="Материал стен";
+    public static final String PLADGED = "В залоге";
 
     protected Map<String, Long> wallType;
 
@@ -210,6 +211,39 @@ public abstract class AbstractParser<T> implements IParser<T> {
         }
         return result[0];
     }
+
+    protected Boolean isPladged(Document doc) {
+        final boolean[] result = {false};
+        Element colContent = doc.select(".object-main-info").first();
+        if(colContent != null) {
+            Element table = colContent.select("table").first();
+            if(table != null) {
+                table
+                        .select("tr")
+                        .forEach(tr -> {
+                            Element th = tr.select("th").first();
+                            if(th != null  && PLADGED.equals(th.text())) {
+                                Element td = tr.select("td").first();
+                                if(td != null) {
+                                    String key = td.text().trim();
+                                    result[0] = "да".equals(key);
+                                }
+                            }
+                        });
+            }
+        }
+        return result[0];
+    }
+
+    protected String getPhoneNumber(Document doc) {
+        String result = null;
+        Element phone = doc.select("phones").first();
+        if (phone != null) {
+            result = phone.text();
+        }
+        return result;
+    }
+
 
     public void setScanType(String scanType) {
         this.scanType = scanType;

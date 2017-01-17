@@ -60,11 +60,11 @@ public class ProdazhaDomovParserTest {
         System.out.print(";");
         System.out.print(mHouse.getRoomCount());
         System.out.print(";");
+        System.out.print(mHouse.getLandAreaHundredthHa());
+        System.out.print(";");
         System.out.print(mHouse.getYearBuilt());
         System.out.print(";");
         System.out.print(mHouse.getArea());
-        System.out.print(";");
-        System.out.print(mHouse.getLivingArea());
         System.out.print(";");
         System.out.print(mHouse.getKitchenArea());
         System.out.print(";");

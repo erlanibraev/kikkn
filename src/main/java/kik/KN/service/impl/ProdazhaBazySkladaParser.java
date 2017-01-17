@@ -39,6 +39,8 @@ public class ProdazhaBazySkladaParser extends AbstractCommecrcialParser implemen
         mCommercial.setAddressName(getDetailsAddressName(mCommercial, doc));
         mCommercial.setBuildingType(getBuildingType(doc));
         mCommercial.setCommercialEstateType(getCommercialEstateType(doc));
+        mCommercial.setPhoneNumber(getPhoneNumber(doc));
+        mCommercial.setPledged(isPladged(doc));
         if (mCommercial.getBuildingType() != null && mCommercial.getBuildingType().equals(1L)) {
             mCommercial.setBussinessCenterName(getBussinessCenterName(doc));
         }

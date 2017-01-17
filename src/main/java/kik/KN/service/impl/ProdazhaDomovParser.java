@@ -62,17 +62,37 @@ public class ProdazhaDomovParser extends AbstractParser<MHouse> implements IPars
         mHouse.setDescription(getDescription(doc));
         mHouse.setWallType(getWallType(doc));
         mHouse.setAddressName(getDetailsAddressName(mHouse, doc));
+        mHouse.setPhoneNumber(getPhoneNumber(doc));
+        mHouse.setPledged(isPladged(doc));
+
     }
 
     protected MHouse getBaseData(Element element) {
         MHouse result = new MHouse();
         result.setAdvertType(1L);
+        result.setSource(2L);
         result.setAddressName(getAddressName(element));
         result.setPrice(getPrice(element));
         result.setRoomCount(getRoomCount(element));
         result.setYearBuilt(getYearBuild(element));
         result.setPageId(getOuterId(element));
-        setArea(result, element);
+        result.setLandAreaHundredthHa(getLandAreaHundredthHa(element));
+        result.setArea(getArea(element));
+        return result;
+    }
+
+    protected Double getLandAreaHundredthHa(Element element) {
+        Double result = null;
+        Element area = element.select(".field-area-sites-free").first();
+        if(area != null) {
+            Element value = area.select(".field-value").first();
+            if(value != null) {
+                String str = value.text().replaceAll("сот","").trim();
+                if(str != null && !str.isEmpty() && ValidateNumber.isNumber(str)) {
+                    result = ValidateNumber.getDouble(str);
+                }
+            }
+        }
         return result;
     }
 
@@ -109,27 +129,28 @@ public class ProdazhaDomovParser extends AbstractParser<MHouse> implements IPars
         return result;
     }
 
-    protected void setArea(MHouse house, Element element) {
-        Element field = element
-                .select(".results-item-square")
+    protected Double getArea(Element element) {
+        Double result = null;
+        Element area = element
+                .select(".field-area-value")
                 .first();
-        if (field != null) {
-            Element area = field.select(".field-value").first();
-            if (area != null) {
-                String[] items = area.text().split("/");
-                house.setArea(items.length > 0 ? ValidateNumber.getDouble(items[0]) : null);
-                if (items.length > 2) {
-                    house.setLivingArea(ValidateNumber.getDouble(items[1]));
-                    house.setKitchenArea(ValidateNumber.getDouble(items[2]));
-                } else if(items.length > 0) {
-                    house.setLivingArea(ValidateNumber.getDouble(items[0]));
-                    if(items.length > 1) {
-                        house.setKitchenArea(ValidateNumber.getDouble(items[1]));
-                    }
+        if(area != null) {
+            Element value = area.select(".field-value").first();
+            if(value != null) {
+                String areaStr = null;
+                int coeff = 1;
+                areaStr = value.text().replaceAll(" Кв.м","")
+                        .replaceAll(" га","")
+                        .replaceAll(" сот","");
+                if(value.text().indexOf("га") > 0) {
+                    coeff = 10000;
+                } else if(value.text().indexOf("сот") > 0) {
+                    coeff = 100;
                 }
-
+                result = ValidateNumber.getDouble(areaStr)*coeff;
             }
         }
+        return result;
     }
 
     private String getDetailsAddressName(MHouse mHouse, Document doc) {
