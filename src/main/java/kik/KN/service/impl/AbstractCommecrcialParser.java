@@ -1,7 +1,6 @@
 package kik.KN.service.impl;
 
 import kik.KN.model.MCommercial;
-import kik.KN.model.MKvartira;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 

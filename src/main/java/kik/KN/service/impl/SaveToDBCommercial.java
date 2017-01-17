@@ -50,10 +50,10 @@ public class SaveToDBCommercial extends AbstractSaveToDB<CommercialEstateAdsEnti
         entity.setProductionRoomArea(data.getProductionRoomArea());
         entity.setRegion(data.getRegion());
         entity.setYearBuilt(data.getYearBuilt());
-        entity.setWaterSupplyType(data.getWaterSuppleType());
+        entity.setWaterSupplyType(data.getWaterSupplyType());
         entity.setWarehouseSpaceArea(data.getWarehouseSpaceArea());
         entity.setWallType(data.getWallType());
-        entity.setStoreysNumber(data.getSotoreysNumber());
+        entity.setStoreysNumber(data.getStoreysNumber());
         entity.setSecurity(data.getSecurity());
         entity.setRoomCount(data.getRoomCount());
         entity.setRentPeriodType(null);

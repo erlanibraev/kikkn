@@ -27,7 +27,7 @@ public class ProdazhaMagazinaTorgovyPloshchadi extends AbstractCommecrcialParser
     protected MCommercial getBaseData(Element element) {
         MCommercial result = new MCommercial();
         result.setPageId(getOuterId(element));
-        result.setCreateDate(new Date());
+        result.setCreateDate(new java.sql.Date(new Date().getTime()));
         result.setAdvertType(1L);
         result.setSource(2L);
         // result.setCommercialEstateType(46L);

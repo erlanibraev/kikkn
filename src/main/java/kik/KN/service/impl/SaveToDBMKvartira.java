@@ -59,7 +59,7 @@ public class SaveToDBMKvartira extends AbstractSaveToDB<ApartmentAdsEntity, MKva
         entity.setStoreysNumber(data.getStoreysNumber());
         entity.setTelephoneFacility(data.getTelephoneFacility());
         entity.setWallType(data.getWallType());
-        entity.setYearBuilt(data.getYearBuild());
+        entity.setYearBuilt(data.getYearBuilt());
         entity.setAdvertType(data.getAdvertType());
         entity.setSource(getSourceId());
         entity.setLink(data.getLink());

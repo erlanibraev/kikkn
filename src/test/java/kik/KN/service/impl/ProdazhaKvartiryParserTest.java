@@ -99,7 +99,7 @@ public class ProdazhaKvartiryParserTest {
         System.out.print(";");
         System.out.print(mKvartira.getRoomCount());
         System.out.print(";");
-        System.out.print(mKvartira.getYearBuild());
+        System.out.print(mKvartira.getYearBuilt());
         System.out.print(";");
         System.out.print(mKvartira.getStorey());
         System.out.print(";");

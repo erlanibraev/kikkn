@@ -70,7 +70,7 @@ public class ProdazhaKvartiryParser extends AbstractParser<MKvartira> implements
         result.setAddressName(getAddressName(element));
         result.setPrice(getPrice(element));
         result.setRoomCount(getRoomCount(element));
-        result.setYearBuild(getYearBuild(element));
+        result.setYearBuilt(getYearBuild(element));
         result.setPageId(getOuterId(element));
         setArea(result, element);
         setFloor(result, element);
