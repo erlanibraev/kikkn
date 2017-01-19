@@ -123,7 +123,7 @@ public class ProdazhaKvartiryParser extends AbstractParser<MKvartira> implements
                     kvartira.setLivingArea(ValidateNumber.getDouble(items[1]));
                     kvartira.setKitchenArea(ValidateNumber.getDouble(items[2]));
                 } else if(items.length > 0) {
-                    kvartira.setLivingArea(ValidateNumber.getDouble(items[0]));
+                    kvartira.setArea(ValidateNumber.getDouble(items[0]));
                     if(items.length > 1) {
                         kvartira.setKitchenArea(ValidateNumber.getDouble(items[1]));
                     }
