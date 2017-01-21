@@ -1,6 +1,7 @@
 package kik.KN.repository.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
 /**
@@ -50,7 +51,7 @@ public class ApartmentAdsEntity {
     private Long rentPeriodType;
 
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;

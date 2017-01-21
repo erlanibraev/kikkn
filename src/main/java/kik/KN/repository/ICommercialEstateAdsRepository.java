@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ICommercialEstateAdsRepository extends JpaRepository<CommercialEstateAdsEntity, Long>, JpaSpecificationExecutor<CommercialEstateAdsEntity> {
-    public CommercialEstateAdsEntity findOneByPageId(@Param("pageId") Long pageId);
+    public CommercialEstateAdsEntity findOneByPageIdAndSource(@Param("pageId") Long pageId, @Param("source") Long source);
 
 }

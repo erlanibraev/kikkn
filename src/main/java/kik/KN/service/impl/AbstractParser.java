@@ -22,7 +22,7 @@ import java.util.Map;
  */
 public abstract class AbstractParser<T> implements IParser<T> {
 
-    protected static final Logger log = LoggerFactory.getLogger(AbstractParser.class);
+    protected Logger log = LoggerFactory.getLogger(AbstractParser.class);
 
     public static final String WALL_METRIAL="Материал стен";
     public static final String PLADGED = "В залоге";
@@ -36,7 +36,6 @@ public abstract class AbstractParser<T> implements IParser<T> {
     private  String url = "https://www.kn.kz/";
     private List<String> types;
     private Region region;
-
 
     @PostConstruct
     public void init() {
@@ -289,6 +288,5 @@ public abstract class AbstractParser<T> implements IParser<T> {
     public void setWallType(Map<String, Long> wallType) {
         this.wallType = wallType;
     }
-
 
 }

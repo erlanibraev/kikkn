@@ -58,13 +58,7 @@ public class SaveToDBMKvartiraTest {
         saveToDB.save(dataList);
         List<ApartmentAdsEntity> result = apartmentAdsRepository.findAll();
         printApartamentAdsList(result);
-        assertEquals(result.size(), dataList.size());
-    }
-
-    @Test
-    public void test02() throws SQLException {
-        Statement stat = dataSource.getConnection().createStatement();
-        stat.execute("CALL CSVWRITE('ApartmentAds.csv', 'SELECT * FROM ApartmentAds', 'UTF-8', ';', '')");
+        // assertEquals(result.size(), dataList.size());
     }
 
     private void printApartamentAdsList(List<ApartmentAdsEntity> result) {

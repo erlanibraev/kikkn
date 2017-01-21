@@ -20,7 +20,7 @@ public class SaveToDBMKvartira extends AbstractSaveToDB<ApartmentAdsEntity, MKva
 
     protected ApartmentAdsEntity getEntity(MKvartira data) {
         Long pageId = data.getPageId();
-        ApartmentAdsEntity entity = pageId != null ? ((IApartmentAdsRepository)getRepository()).findOneByPageId(pageId) : null;
+        ApartmentAdsEntity entity = pageId != null ? ((IApartmentAdsRepository)getRepository()).findOneByPageIdAndSource(pageId,2L) : null;
         if(entity == null) {
             entity = new ApartmentAdsEntity();
             entity.setCreateDate(new Date(new java.util.Date().getTime()));

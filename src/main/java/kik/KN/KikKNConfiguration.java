@@ -6,12 +6,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.scheduling.annotation.AsyncConfigurerSupport;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executor;
 
 /**
  * Создал Ибраев Ерлан 05.01.17.
@@ -19,6 +23,7 @@ import java.util.Map;
 @Configuration
 @EnableJpaRepositories(basePackages = "kik.KN.repository")
 @PropertySource("classpath:app.properties")
+@EnableAsync
 public class KikKNConfiguration {
 
     @Value("${kn.cities}")
@@ -47,6 +52,17 @@ public class KikKNConfiguration {
     @Bean(name="walltype")
     public Map<String, Long> walltype() {
         return walltype;
+    }
+
+    @Bean
+    public Executor getAsyncExecutor() {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(5);
+        executor.setMaxPoolSize(10);
+        executor.setQueueCapacity(500);
+        executor.setThreadNamePrefix("www.kn.kz-");
+        executor.initialize();
+        return executor;
     }
 
     private Map<String, Long> initWallType() {

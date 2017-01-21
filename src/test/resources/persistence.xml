@@ -74,7 +74,7 @@
         <class>kik.KN.repository.entities.WindowTypeEntity</class>
         <class>kik.KN.repository.entities.ClaimsPurchaseMemosEntity</class>
         <properties>
-            <property name="hibernate.connection.url" value="jdbc:sqlserver://192.168.1.22:1433;databaseName=oris_kik"/>
+            <property name="hibernate.connection.url" value="jdbc:sqlserver://192.168.1.22:1433;databaseName=oris_kik_test"/>
             <property name="hibernate.connection.driver_class" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
         </properties>
     </persistence-unit>

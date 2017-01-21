@@ -4,9 +4,12 @@ import kik.KN.model.MCommercial;
 import kik.KN.repository.ICommercialEstateAdsRepository;
 import kik.KN.repository.entities.CommercialEstateAdsEntity;
 import kik.KN.service.ISaveToDB;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.util.List;
+import java.util.concurrent.Future;
 
 /**
  * Создал Ибраев Ерлан 16.01.17.
@@ -16,7 +19,7 @@ public class SaveToDBCommercial extends AbstractSaveToDB<CommercialEstateAdsEnti
 
     protected CommercialEstateAdsEntity getEntity(MCommercial data) {
         Long pageId = data.getPageId();
-        CommercialEstateAdsEntity entity = pageId != null ? ((ICommercialEstateAdsRepository)getRepository()).findOneByPageId(pageId) : null;
+        CommercialEstateAdsEntity entity = pageId != null ? ((ICommercialEstateAdsRepository)getRepository()).findOneByPageIdAndSource(pageId, 2L) : null;
         if(entity == null) {
             entity = new CommercialEstateAdsEntity();
             entity.setCreateDate(new Date(new java.util.Date().getTime()));

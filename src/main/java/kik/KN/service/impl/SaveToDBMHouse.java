@@ -16,7 +16,9 @@ public class SaveToDBMHouse extends AbstractSaveToDB<HouseAdsEntity, MHouse> imp
     @Override
     protected HouseAdsEntity getEntity(MHouse data) {
         Long pageId = data.getPageId();
-        HouseAdsEntity entity = pageId != null ? ((IHouseAdsRepository) getRepository()).findOneByPageId(pageId): null;
+        System.out.print("House pageId = ");
+        System.out.println(pageId);
+        HouseAdsEntity entity = pageId != null ? ((IHouseAdsRepository) getRepository()).findOneByPageIdAndSource(pageId, 2L): null;
         if(entity == null) {
             entity = new HouseAdsEntity();
             entity.setCreateDate(new java.sql.Date(new Date().getTime()));

@@ -15,4 +15,5 @@ public interface IParser<T> {
     public List<T> scanPages(String url) throws IOException;
     public Map<String, T> scanPage(Document current, Long regionId);
     public Map<String, T> getItems(Document current);
+    public void setOneDay(Boolean oneDay);
 }

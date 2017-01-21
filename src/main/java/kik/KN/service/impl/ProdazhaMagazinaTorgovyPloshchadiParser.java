@@ -16,7 +16,7 @@ import java.util.Map;
  */
 @Component
 @Qualifier("ProdazhaMagazinaTorgovyPloshchadi")
-public class ProdazhaMagazinaTorgovyPloshchadi extends AbstractCommecrcialParser implements IParser<MCommercial> {
+public class ProdazhaMagazinaTorgovyPloshchadiParser extends AbstractCommecrcialParser implements IParser<MCommercial> {
 
     @Override
     protected void initScanType() {

@@ -14,5 +14,6 @@ spring:
           strategy: org.hibernate.cfg.DefaultNamingStrategy
           implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
           physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        use-new-id-generator-mappings: true
       show-sql: true
 
