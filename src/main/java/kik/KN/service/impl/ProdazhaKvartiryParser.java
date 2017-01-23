@@ -84,6 +84,8 @@ public class ProdazhaKvartiryParser extends AbstractParser<MKvartira> implements
         mKvartira.setAddressName(getDetailsAddressName(mKvartira, doc));
         mKvartira.setPhoneNumber(getPhoneNumber(doc));
         mKvartira.setPledged(isPladged(doc));
+        mKvartira.setLat(getLat(doc));
+        mKvartira.setLon(getLon(doc));
     }
 
     private String getDetailsAddressName(MKvartira mKvartira, Document doc) {

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.ejb.AsyncResult;
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public abstract class AbstractSaveToDB<E,T> implements ISaveToDB<E,T> {
     }
 
     @Override
+    @Transactional
     public List<E> save(List<T> list) {
         List<E> result = new ArrayList<E>();
         list.forEach(t -> result.add(getEntity(t)));

@@ -12,12 +12,11 @@ import kik.KN.service.IWebSiteGrubber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import javax.ejb.AsyncResult;
+import javax.sql.DataSource;
 import java.util.*;
-import java.util.concurrent.Future;
 
 /**
  * Создал Ибраев Ерлан 04.01.17.
@@ -29,52 +28,48 @@ public class WebSiteGrubberKN implements IWebSiteGrubber {
     private ISaveToDB<CommercialEstateAdsEntity, MCommercial> saveToDbCommercial;
     private ISaveToDB<HouseAdsEntity, MHouse> saveToDbHouse;
     private List<IParser> parsers;
-    private Map<IParser, Future> futureMap;
 
-    @PostConstruct
-    public void init() {
-        futureMap = new HashMap<>();
-    }
+    @Autowired
+    private DataSource dataSource;
 
     @Override
     public void grub() {
-        if (isDone()) {
-            for (IParser iParser : parsers) {
-                if (iParser instanceof AbstractCommecrcialParser) {
-                    futureMap.put(iParser,saveToDbCommercial.save(iParser));
-                } else if (iParser instanceof ProdazhaKvartiryParser) {
-                    futureMap.put(iParser,savetToDbKvartira.save(iParser));
-                } else if (iParser instanceof ProdazhaDomovParser) {
-                    futureMap.put(iParser,saveToDbHouse.save(iParser));
-                }
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        jdbcTemplate.execute("with t1 as (\n" +
+                "    select pageId, COUNT (pageId) as count\n" +
+                "    FROM ApartmentAds\n" +
+                "    where source = 2\n" +
+                "    GROUP BY pageId HAVING COUNT (pageId) > 1\n" +
+                ")\n" +
+                "delete ApartmentAds\n" +
+                "where pageId in (select pageId from t1)");
+        jdbcTemplate.execute("with t1 as (\n" +
+                "    select pageId, COUNT (pageId) as count\n" +
+                "    FROM HouseAds\n" +
+                "    where source = 2\n" +
+                "    GROUP BY pageId HAVING COUNT (pageId) > 1\n" +
+                ")\n" +
+                "delete HouseAds\n" +
+                "where pageId in (select pageId from t1)");
+        jdbcTemplate.execute("with t1 as (\n" +
+                "    select pageId, COUNT (pageId) as count\n" +
+                "    FROM CommercialEstateAds\n" +
+                "    where source = 2\n" +
+                "    GROUP BY pageId HAVING COUNT (pageId) > 1\n" +
+                ")\n" +
+                "delete CommercialEstateAds\n" +
+                "where pageId in (select pageId from t1)");
+
+        for (IParser iParser : parsers) {
+            if (iParser instanceof AbstractCommecrcialParser) {
+                saveToDbCommercial.save(iParser.scan());
+            } else if (iParser instanceof ProdazhaKvartiryParser) {
+                savetToDbKvartira.save(iParser.scan());
+            } else if (iParser instanceof ProdazhaDomovParser) {
+                saveToDbHouse.save(iParser.scan());
             }
         }
 
-/*
-        parsers
-                .forEach(iParser -> {
-                    if(iParser instanceof AbstractCommecrcialParser) {
-                        log.info("Коммерческая неджижимость");
-                        commercial = saveToDbCommercial.save(iParser.scan());
-                    } else if (iParser instanceof ProdazhaKvartiryParser) {
-                        log.info("Квартиры");
-                        kvartira = savetToDbKvartira.save(iParser.scan());
-                    } else if(iParser instanceof ProdazhaDomovParser) {
-                        log.info("Дома");
-                        house = saveToDbHouse.save(iParser.scan());
-                    }
-                });
-*/
-    }
-
-    @Override
-    public boolean isDone() {
-        boolean isDone = true;
-        for(IParser key: futureMap.keySet()) {
-            Future item = futureMap.get(key);
-            isDone = isDone && item.isDone();
-        }
-        return isDone;
     }
 
     @Autowired

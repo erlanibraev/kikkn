@@ -39,10 +39,6 @@ public class WebSiteGrubberKNTest {
     @Test
     public void test01() throws InterruptedException {
         webSiteGrubberKN.grub();
-
-        while(!webSiteGrubberKN.isDone()) {
-            sleep(60000);
-        }
     }
 
 

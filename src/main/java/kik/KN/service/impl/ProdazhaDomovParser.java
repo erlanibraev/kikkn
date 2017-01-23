@@ -64,7 +64,8 @@ public class ProdazhaDomovParser extends AbstractParser<MHouse> implements IPars
         mHouse.setAddressName(getDetailsAddressName(mHouse, doc));
         mHouse.setPhoneNumber(getPhoneNumber(doc));
         mHouse.setPledged(isPladged(doc));
-
+        mHouse.setLat(getLat(doc));
+        mHouse.setLon(getLon(doc));
     }
 
     protected MHouse getBaseData(Element element) {

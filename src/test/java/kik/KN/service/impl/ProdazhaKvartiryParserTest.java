@@ -88,6 +88,16 @@ public class ProdazhaKvartiryParserTest {
         assertFalse(result.isEmpty());
     }
 
+    @Test
+    public void test07() throws IOException {
+        Document doc = Jsoup.connect("https://www.kn.kz/obyavleniya/prodazha-kvartiry-42m-v-almaty-2757608/").get();
+        Double lat = prodazhaKvartiryParser.getLat(doc);
+        Double lon = prodazhaKvartiryParser.getLon(doc);
+        System.out.print(lat);
+        System.out.print(" : ");
+        System.out.println(lon);
+    }
+
     private void printKvartira(MKvartira mKvartira) {
         System.out.print(mKvartira.getPageId());
         System.out.print(";");

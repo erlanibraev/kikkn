@@ -6,5 +6,4 @@ package kik.KN.service;
 public interface IWebSiteGrubber {
 
     public void grub();
-    public boolean isDone();
 }

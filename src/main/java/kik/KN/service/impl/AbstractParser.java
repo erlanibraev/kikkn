@@ -1,19 +1,25 @@
 package kik.KN.service.impl;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import kik.KN.model.MCommercial;
+import kik.KN.model.MKvartira;
 import kik.KN.service.IParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.json.GsonJsonParser;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +32,8 @@ public abstract class AbstractParser<T> implements IParser<T> {
 
     public static final String WALL_METRIAL="Материал стен";
     public static final String PLADGED = "В залоге";
+    public static final String START_PARSE_LATLON = "var objectMapParameters = ";
+    public static final String END_PARSE_LATLON = "//-->";
 
     protected Map<String, Long> wallType;
 
@@ -72,6 +80,50 @@ public abstract class AbstractParser<T> implements IParser<T> {
     }
 
     public abstract Map<String, T> scanPage(Document current, Long region);
+
+    protected Double getCoord(Document doc, String key) {
+        final Double[] result = {null};
+        Elements el = doc.getElementsByTag("script");
+        for(Element element: el) {
+            String text = element.data();
+            if(text != null && !text.isEmpty()) {
+                if (text.indexOf(START_PARSE_LATLON) > -1) {
+                    try {
+                        int start = text.indexOf(START_PARSE_LATLON) + START_PARSE_LATLON.length();
+                        int end = text.indexOf(END_PARSE_LATLON);
+                        String obj = text.substring(start, end);
+                        Map<String, Object> map = mapper(obj);
+                        if (map.get("viewpoint") != null) {
+                            Map<String, Object> coord = (Map<String, Object>) map.get("viewpoint");
+                            // System.out.println(coord.get(key));
+                            result[0] = ValidateNumber.getDouble(coord.get(key) != null ? coord.get(key).toString() : "0");
+                            break;
+                        }
+                    } catch (IOException e) {
+                        log.error(e.getLocalizedMessage(), e);
+                    }
+                }
+            }
+        };
+        return result[0];
+    }
+
+    protected Double getLat(Document doc) {
+        return getCoord(doc, "lat");
+    }
+
+    protected Double getLon(Document doc) {
+        return getCoord(doc,"lng");
+    }
+
+
+    protected Map<String, Object> mapper(String json) throws IOException {
+        Map<String, Object> result = new HashMap<>();
+        ObjectMapper mapper = new ObjectMapper();
+        result = mapper.readValue(json, HashMap.class);
+        return result;
+    }
+
 
 
     protected List<String> getCitiesUrls(String type) {

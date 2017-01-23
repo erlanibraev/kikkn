@@ -25,14 +25,13 @@ public class SaveToDBMKvartira extends AbstractSaveToDB<ApartmentAdsEntity, MKva
             entity = new ApartmentAdsEntity();
             entity.setCreateDate(new Date(new java.util.Date().getTime()));
         }
-        entity.setAnalog(null);
-        entity.setPhoneNumber(null);
-//        entity.setRegion(null);
-
+        entity.setAnalog(data.getAnalog());
+        entity.setPhoneNumber(data.getPhoneNumber());
+        entity.setRegion(data.getRegion());
         entity.setPageId(data.getPageId());
         entity.setAddressName(data.getAddressName());
         entity.setArea(data.getArea());
-        entity.setBalconyType(null);
+        entity.setBalconyType(data.getBalconyType());
         entity.setBathroomType(data.getBathroomType());
         entity.setCeilingHeight(data.getCeilingHeight());
         entity.setCondition(data.getCondition());

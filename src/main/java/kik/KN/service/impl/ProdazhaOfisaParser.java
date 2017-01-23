@@ -32,6 +32,8 @@ public class ProdazhaOfisaParser extends AbstractCommecrcialParser implements IP
         if (mCommercial.getBuildingType() != null && mCommercial.getBuildingType().equals(1L)) {
             mCommercial.setBussinessCenterName(getBussinessCenterName(doc));
         }
+        mCommercial.setLat(getLat(doc));
+        mCommercial.setLon(getLon(doc));
     }
 
     @Override
