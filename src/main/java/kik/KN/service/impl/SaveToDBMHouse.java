@@ -7,6 +7,7 @@ import kik.KN.service.ISaveToDB;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Создал Ибраев Ерлан 17.01.17.
@@ -18,7 +19,8 @@ public class SaveToDBMHouse extends AbstractSaveToDB<HouseAdsEntity, MHouse> imp
         Long pageId = data.getPageId();
         System.out.print("House pageId = ");
         System.out.println(pageId);
-        HouseAdsEntity entity = pageId != null ? ((IHouseAdsRepository) getRepository()).findOneByPageIdAndSource(pageId, 2L): null;
+        List<HouseAdsEntity> list = ((IHouseAdsRepository) getRepository()).findAllByPageIdAndSource(pageId, 2L);
+        HouseAdsEntity entity = list!=null && !list.isEmpty() ? list.get(0) : null;
         if(entity == null) {
             entity = new HouseAdsEntity();
             entity.setCreateDate(new java.sql.Date(new Date().getTime()));
