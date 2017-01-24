@@ -23,7 +23,7 @@ public class SaveToDBMHouse extends AbstractSaveToDB<HouseAdsEntity, MHouse> imp
         HouseAdsEntity entity = list!=null && !list.isEmpty() ? list.get(0) : null;
         if(entity == null) {
             entity = new HouseAdsEntity();
-            entity.setCreateDate(new java.sql.Date(new Date().getTime()));
+            //entity.setCreateDate(new java.sql.Date(new Date().getTime()));
         }
         entity.setPageId(pageId);
         entity.setArea(data.getArea());
@@ -61,6 +61,7 @@ public class SaveToDBMHouse extends AbstractSaveToDB<HouseAdsEntity, MHouse> imp
         entity.setHeatingType(data.getHeatingType());
         entity.setLink(data.getLink());
         entity.setPrice(data.getPrice());
+        entity.setCreateDate(data.getCreateDate());
         return entity;
     }
 }

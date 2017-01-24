@@ -22,7 +22,7 @@ public class SaveToDBCommercial extends AbstractSaveToDB<CommercialEstateAdsEnti
         CommercialEstateAdsEntity entity = pageId != null ? ((ICommercialEstateAdsRepository)getRepository()).findOneByPageIdAndSource(pageId, 2L) : null;
         if(entity == null) {
             entity = new CommercialEstateAdsEntity();
-            entity.setCreateDate(new Date(new java.util.Date().getTime()));
+            //entity.setCreateDate(new Date(new java.util.Date().getTime()));
         }
         entity.setBussinessCenterName(data.getBussinessCenterName());
         entity.setBuildingType(data.getBuildingType());
@@ -34,7 +34,6 @@ public class SaveToDBCommercial extends AbstractSaveToDB<CommercialEstateAdsEnti
         entity.setCommercialEstateType(data.getCommercialEstateType());
         entity.setCommunications(data.getCommunications());
         entity.setCondition(data.getCondition());
-        // entity.setCreateDate();
         entity.setDescription(data.getDescription());
         entity.setHallArea(null);
         entity.setHeatingType(data.getHeatingType());
@@ -61,6 +60,7 @@ public class SaveToDBCommercial extends AbstractSaveToDB<CommercialEstateAdsEnti
         entity.setRoomCount(data.getRoomCount());
         entity.setRentPeriodType(null);
         entity.setSource(getSourceId());
+        entity.setCreateDate(data.getCreateDate());
         return entity;
     }
 

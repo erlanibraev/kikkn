@@ -50,6 +50,8 @@ public class ProdazhaMagazinaTorgovyPloshchadiParser extends AbstractCommecrcial
         }
         mCommercial.setLat(getLat(doc));
         mCommercial.setLon(getLon(doc));
+        mCommercial.setCreateDate(getCreateDate(doc));
+
     }
 
 }

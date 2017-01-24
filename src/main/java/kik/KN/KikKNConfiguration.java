@@ -22,7 +22,7 @@ import java.util.concurrent.Executor;
  */
 @Configuration
 @EnableJpaRepositories(basePackages = "kik.KN.repository")
-@PropertySource("classpath:app.properties")
+@PropertySource({"classpath:app.properties"})
 @EnableAsync
 public class KikKNConfiguration {
 

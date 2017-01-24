@@ -1,9 +1,6 @@
 package kik.KN.service.impl;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import kik.KN.model.MCommercial;
-import kik.KN.model.MKvartira;
 import kik.KN.service.IParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -14,10 +11,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.json.GsonJsonParser;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -293,6 +292,26 @@ public abstract class AbstractParser<T> implements IParser<T> {
             result = phone.text();
         }
         return result;
+    }
+
+    protected Date getCreateDate(Document doc) {
+        Date result = null;
+        Element dateElement = doc.select(".date").first();
+        if (dateElement != null) {
+            String text = dateElement.text().replaceAll("Опубликовано:","").trim();
+            try {
+                result = parseDate(text);
+            } catch (ParseException e) {
+                log.error(e.getLocalizedMessage(), e);
+            }
+        }
+        return result;
+    }
+
+    protected Date parseDate(String text) throws ParseException {
+        SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+
+        return new Date(df.parse(text).getTime());
     }
 
 

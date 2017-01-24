@@ -12,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -99,17 +98,8 @@ public class ProdazhaKvartiryParserTest {
         System.out.println(lon);
     }
 
-    @Test
-    public void  test08() throws IOException {
-        Document doc = Jsoup.connect("https://www.kn.kz/obyavleniya/prodazha-kvartiry-42m-v-almaty-2757608/").get();
-        Date result =  prodazhaKvartiryParser.getCreateDate(doc);
-        System.out.println(result);
-    }
-
     private void printKvartira(MKvartira mKvartira) {
         System.out.print(mKvartira.getPageId());
-        System.out.print(";");
-        System.out.print(mKvartira.getCreateDate());
         System.out.print(";");
         System.out.print(mKvartira.getRegion());
         System.out.print(";");

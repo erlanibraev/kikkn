@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -86,6 +87,7 @@ public class ProdazhaKvartiryParser extends AbstractParser<MKvartira> implements
         mKvartira.setPledged(isPladged(doc));
         mKvartira.setLat(getLat(doc));
         mKvartira.setLon(getLon(doc));
+        mKvartira.setCreateDate(getCreateDate(doc));
     }
 
     private String getDetailsAddressName(MKvartira mKvartira, Document doc) {

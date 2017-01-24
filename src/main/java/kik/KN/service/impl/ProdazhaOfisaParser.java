@@ -34,6 +34,8 @@ public class ProdazhaOfisaParser extends AbstractCommecrcialParser implements IP
         }
         mCommercial.setLat(getLat(doc));
         mCommercial.setLon(getLon(doc));
+        mCommercial.setCreateDate(getCreateDate(doc));
+
     }
 
     @Override
