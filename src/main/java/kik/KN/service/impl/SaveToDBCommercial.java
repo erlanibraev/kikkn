@@ -58,7 +58,7 @@ public class SaveToDBCommercial extends AbstractSaveToDB<CommercialEstateAdsEnti
         entity.setStoreysNumber(data.getStoreysNumber());
         entity.setSecurity(data.getSecurity());
         entity.setRoomCount(data.getRoomCount());
-        entity.setRentPeriodType(null);
+        entity.setRentPeriodType(data.getRentPeriodType());
         entity.setSource(getSourceId());
         entity.setCreateDate(data.getCreateDate());
         return entity;
