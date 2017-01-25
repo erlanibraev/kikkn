@@ -39,8 +39,8 @@ public class SaveToDBCommercial extends AbstractSaveToDB<CommercialEstateAdsEnti
         entity.setHeatingType(data.getHeatingType());
         entity.setInternetType(null);
         entity.setLandArea(data.getLandArea());
-        entity.setLat(null);
-        entity.setLon(null);
+        entity.setLat(data.getLat());
+        entity.setLon(data.getLon());
         entity.setLink(data.getLink());
         entity.setOfficeSpaceArea(data.getOfficeSpaceArea());
         entity.setOtherProp(data.getOtherProp());
