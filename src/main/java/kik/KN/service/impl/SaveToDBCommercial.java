@@ -37,7 +37,7 @@ public class SaveToDBCommercial extends AbstractSaveToDB<CommercialEstateAdsEnti
         entity.setDescription(data.getDescription());
         entity.setHallArea(null);
         entity.setHeatingType(data.getHeatingType());
-        entity.setInternetType(null);
+        entity.setInternetType(data.getInternetType());
         entity.setLandArea(data.getLandArea());
         entity.setLat(data.getLat());
         entity.setLon(data.getLon());
@@ -45,7 +45,7 @@ public class SaveToDBCommercial extends AbstractSaveToDB<CommercialEstateAdsEnti
         entity.setOfficeSpaceArea(data.getOfficeSpaceArea());
         entity.setOtherProp(data.getOtherProp());
         entity.setPageId(pageId);
-        entity.setPhoneNumber(null);
+        entity.setPhoneNumber(data.getPhoneNumber());
         entity.setPledged(data.getPledged());
         entity.setPrice(data.getPrice());
         entity.setPriceUnit(data.getPriceUnit());
