@@ -21,6 +21,8 @@ public class ArendaZdaniyaPomeshcheniyaParser extends ProdazhaZdaniyaPomeshcheni
     protected MCommercial getBaseData(Element element) {
         MCommercial result =  super.getBaseData(element);
         result.setAdvertType(2L);
+        result.setPriceUnit(1L);
+        result.setRentPeriodType(3L);
         return result;
     }
 }

@@ -21,6 +21,7 @@ public class ArendaDomovParser extends ProdazhaDomovParser {
     protected MHouse getBaseData(Element element) {
         MHouse result =  super.getBaseData(element);
         result.setAdvertType(2L);
+        result.setPriceUnit(1L);
         return result;
     }
 }
